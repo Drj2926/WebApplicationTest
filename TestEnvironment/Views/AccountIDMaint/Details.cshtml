@@ -1,0 +1,102 @@
+﻿@model TestEnvironment.Models.AccountIDMaintViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Customer Account Management</h4>
+</div>
+    <div class="row">
+        @using (Html.BeginForm())
+        {
+            <b>Search Text</b>
+            @Html.TextBox("searchText",null,new{id= "txtSearch"})
+            <input type="submit" value="Search"> 
+        }
+
+    </div>
+    
+
+    <table class="table">
+
+        <tr>
+            <th> @Html.DisplayNameFor(model => model.details.CustomerID) </th>
+            <td> @Html.DisplayFor(model => model.details.CustomerID)</td>
+        </tr>
+        <tr>
+            <th> @Html.DisplayNameFor(model => model.details.CompanyName)</th>
+            <td> @Html.DisplayFor(model => model.details.CompanyName)</td>
+        </tr>
+        <tr>
+            <th> @Html.DisplayNameFor(model => model.details.ContactName)</th>
+            <td> @Html.DisplayFor(model => model.details.ContactName)</td>
+
+        </tr>
+        <tr>
+            <th> @Html.DisplayNameFor(model => model.details.Country)</th>>
+            <td> @Html.DisplayFor(model => model.details.Country)</td>>
+
+        </tr>
+        <tr>
+            <th> @Html.DisplayNameFor(model => model.details.City)</th>
+            <td> @Html.DisplayFor(model => model.details.City)</td>
+        </tr>
+        <tr>
+            @Html.ActionLink("SubAccounts", null, null, new { href = "#edit", data_toggle = "modal" })
+        </tr>
+    </table>
+    <div class="row">
+        <button class="btn-btn-primary">Edit Details</button>
+        <button class="btn-btn-primary" data-target="#edit" data-toggle="modal">Edit Customer Accounts</button>
+
+    </div>
+
+    <div class="modal" id="edit">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Edit-SubAccounts for @Html.DisplayFor(model => Model.details.CustomerID)
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    @using(Html.BeginForm()){
+                        foreach(var item in Model.customerIDs)
+                        {
+                          <div class="row">
+                              <div class="col-md-5">
+                                  @Html.CheckBox("SubAccount")
+                                  @Html.DisplayNameFor(model => item.customerID)
+                                  @Html.DisplayFor(model => item.customerID)  
+                              </div>
+                              <div class="col-md-5">
+                                  @Html.DisplayNameFor(model => item.business)
+                                  @Html.DisplayFor(model => item.business)
+                              </div>
+                          </div>
+
+                        }
+                    }
+                </div>
+                <div class="modal-footer">
+                     <div class="row">
+                            <div class="col-md-5">
+                                @Html.DisplayNameFor(model => model.customerIDs.FirstOrDefault().customerID)
+                                @Html.TextBox("CustomerAccount")
+                            </div>
+                            <div class="col-md-5">
+                                @Html.DisplayNameFor(model => model.customerIDs.FirstOrDefault().business)
+                                @Html.TextBox("CustomerAccount")
+                            </div>
+                        </div>
+                    <button class="btn-btn-primary">Create</button>                    
+                    <button class="btn-danger">Delete</button>
+                    <button class="btn-btn-primary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+

@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="TestDevModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="WhitegloveDetails_Test">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Name="CustomerID" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="CompanyName" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="ContactName" Type="varchar" MaxLength="30" />
+          <Property Name="ContactTitle" Type="nvarchar" MaxLength="30" />
+          <Property Name="Address" Type="varchar" MaxLength="60" />
+          <Property Name="City" Type="varchar" MaxLength="15" />
+          <Property Name="Region" Type="varchar" MaxLength="15" />
+          <Property Name="PostalCode" Type="varchar" MaxLength="10" />
+          <Property Name="Country" Type="varchar" MaxLength="15" />
+          <Property Name="Phone" Type="varchar" MaxLength="24" />
+          <Property Name="Fax" Type="varchar" MaxLength="24" />
+        </EntityType>
+        <Function Name="sp_AutoComplete_Get_Customer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="searchText" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_GetAccountIDSummary" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_getCustomerIDInfo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="accountID" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="TestDevModelStoreContainer">
+          <EntitySet Name="WhitegloveDetails_Test" EntityType="Self.WhitegloveDetails_Test" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="TestDevModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="WhitegloveDetails_Test">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Name="CustomerID" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CompanyName" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ContactName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ContactTitle" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="City" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Region" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="PostalCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Country" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="String" MaxLength="24" FixedLength="false" Unicode="false" />
+          <Property Name="Fax" Type="String" MaxLength="24" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="TestDevEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="WhitegloveDetails_Test" EntityType="Self.WhitegloveDetails_Test" />
+          <FunctionImport Name="sp_GetAccountIDSummary" ReturnType="Collection(TestDevModel.sp_GetAccountIDSummary_Result)" />
+          <FunctionImport Name="sp_getCustomerIDInfo" ReturnType="Collection(TestDevModel.sp_getCustomerIDInfo_Result)" >
+          <Parameter Name="accountID" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_AutoComplete_Get_Customer" ReturnType="Collection(String)">
+            <Parameter Name="searchText" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="sp_GetAccountIDSummary_Result">
+          <Property Type="String" Name="CustomerID" Nullable="false" MaxLength="5" />
+          <Property Type="String" Name="CompanyName" Nullable="false" MaxLength="40" />
+          <Property Type="String" Name="ContactName" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="Title" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="sp_getCustomerIDInfo_Result">
+          <Property Type="String" Name="AccountID" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="CustomerID" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="ContactTitle" Nullable="true" MaxLength="30" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="TestDevModelStoreContainer" CdmEntityContainer="TestDevEntities">
+          <EntitySetMapping Name="WhitegloveDetails_Test">
+            <EntityTypeMapping TypeName="TestDevModel.WhitegloveDetails_Test">
+              <MappingFragment StoreEntitySet="WhitegloveDetails_Test">
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+                <ScalarProperty Name="ContactTitle" ColumnName="ContactTitle" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Region" ColumnName="Region" />
+                <ScalarProperty Name="PostalCode" ColumnName="PostalCode" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_GetAccountIDSummary" FunctionName="TestDevModel.Store.sp_GetAccountIDSummary">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TestDevModel.sp_GetAccountIDSummary_Result">
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_getCustomerIDInfo" FunctionName="TestDevModel.Store.sp_getCustomerIDInfo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="TestDevModel.sp_getCustomerIDInfo_Result">
+                <ScalarProperty Name="AccountID" ColumnName="AccountID" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="ContactTitle" ColumnName="ContactTitle" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_AutoComplete_Get_Customer" FunctionName="TestDevModel.Store.sp_AutoComplete_Get_Customer" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
