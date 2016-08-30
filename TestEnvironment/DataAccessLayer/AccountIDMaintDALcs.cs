@@ -20,6 +20,7 @@ namespace TestEnvironment.DataAccessLayer
                              ,business = s.CompanyName
                              ,customerType = s.Title
                           };
+            //return list
             return summary.ToList();
         }
 
