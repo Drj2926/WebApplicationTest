@@ -18,12 +18,18 @@ namespace TestEnvironment.Controllers
              List<AccountIDMaintSummary> summary  = dal.getAccountSummary();
             return View(summary);
         }
-       // [HttpPost]
-        //public ActionResult Index(string searchText)
-        //{
-          //  List<AccountIDMaintSummary> summary = 
-           // return View();
-        //}
+       [HttpPost]
+        public ActionResult Index(string searchText)
+        {
+            List<AccountIDMaintSummary> summary = dal.getAccountSummary();
+            if(searchText.IsNullOrEmpty())
+            {
+                return View();
+            }
+            else
+                var filtered = 
+            return View();
+        }
 
         // GET: AccountIDMaint/Details/5
         public ActionResult Details(string id)
